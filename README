@@ -1,0 +1,3 @@
+# virtualenv virtualenv
+# . venv/Scripts/activate
+#pip install flask flask-bootstrap flask-sqlalchemy flask-wtf flask-migrate Flask-Script
