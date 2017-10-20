@@ -1,1 +1,22 @@
-<h1> Hello myworld </h1>
+{% extends "bootstrap/base.html" %}
+{% block html_attribs %} lang="en"{% endblock %}
+
+{% block navbar %}
+
+<nav class="navbar navbar-default">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <a class="navbar-brand" href="{{url_for('index')}}">
+                Penair
+            </a>
+            <a class="navbar-brand" href="{{url_for('read_mac_list')}}">
+                List
+            </a>
+          </div>
+        </div>
+      </nav>
+{% endblock %}
+{% block content %}
+
+
+{% endblock %}

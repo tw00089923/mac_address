@@ -1,4 +1,5 @@
 import os
-Debug = True
-SQLALCHEMY_DATABASE_URI = "mysql://liaowenhao:kcr01260@localhost:8080/elanhome"
-secret_key = os.urandom(24)
+DEBUG = True
+SQLALCHEMY_DATABASE_URI = "mysql+pymysql://liaowenhao:kcr01260@localhost:3306/elanhome"
+SECRET_KEY = os.urandom(20)
+SQLALCHEMY_TRACK_MODIFICATIONS = True

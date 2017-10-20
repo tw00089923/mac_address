@@ -1,0 +1,16 @@
+{% extends "index.html" %}
+
+{% block content %}
+<div>
+    <h1 class="container-fluid text-center">This Mac_address Lists</h1>
+
+<div class="container-fluid">
+    <div >
+        {% for page in data.items %}
+            <p class="text-center"> {{page.date}} : {{page.mac_address}}</p>   
+        {% endfor %}
+    </div>
+
+
+</div>
+{% endblock %}
