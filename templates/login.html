@@ -4,6 +4,20 @@
 <div class="container-fluid">
 
 
+    <div class="col-sm-8 col-sm-offset-2">
+        <div class="form-group">
+            {% with messages = get_flashed_messages()%}
+                {% if messages %}
+                    <ul class="list-group">
+                        {% for message in messages %}
+                        <li >{{ message }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            {% endwith %}
+        </div>
+    </div>
+
 </div>
 
 {% endblock %}
