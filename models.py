@@ -1,10 +1,12 @@
 from myapp import db
 
-class User(db.Model):
+class Userdb(db.Model):
     __table__name = "user"
     id = db.Column(db.Integer,primary_key=True)
     name = db.Column(db.String,nullable=False)
-
+    password = db.Column(db.String(50),nullable=False)
+    email = db.Column(db.String(120), unique=True,nullable=False)
+    
 class data(db.Model):
     __tablename__ = "data"
     data_id = db.Column(db.Integer,primary_key=True)

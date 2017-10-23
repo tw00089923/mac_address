@@ -1,13 +1,53 @@
 {% extends "index.html" %}
 {% block content %}
 <div>
-    <h1 class="container-fluid text-center">This Mac_address Lists</h1>
+    <h2 class="container-fluid text-center">Mac_address</h2>
 
-<div class="container-fluid">
-    <div >
-        {% for page in data.items %}
-            <p class="text-center"> {{page.date}} : {{page.mac_address}}</p>   
+<div class="container-fluid col-sm-offset-3 col-sm-6">
+
+    <div class="pagination btn-group">
+        {% for page_index in data.iter_pages() %}
+            {% if page_index %}
+                {% if page_index != page_index.page %} 
+                    <a href="{{ url_for('read_mac_list',page=page_index)}}"> {{page_index}} </a>
+                {% else %}
+                    <strong> {{page_index}} </strong>
+                {% endif %}
+            {% else %}
+                <span class=ellipsis>…</span>
+            {% endif%}
         {% endfor %}
+        {% if data.has_next %}
+        <a href="{{ url_for('read_mac_list',page=data.page + 1)}}">Next &raquo;</a>
+        {% endif %}
+    </div>
+    <div >
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>序號</th>
+                    <th>日期</th>
+                    <th>Mac_address</th>
+                    {% if current_user.is_authenticated %}
+                    <th>修改<th>
+                    {% endif %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for elanhome in data.items %}
+                <tr>
+                    <td>{{elanhome.data_id}}</td>
+                    <td>{{elanhome.date}}</td>
+                    <td>{{elanhome.mac_address}}</td>
+                    {% if current_user.is_authenticated %}
+                    <button>
+                        <span class="glyphicon glyphicon-cog"></span>
+                    </button>
+                    {% endif %}
+                </tr>   
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
 
 

@@ -5,7 +5,7 @@
 
 <nav class="navbar navbar-default">
         <div class="container-fluid">
-          <div class="navbar-header">
+          <div class="navbar-header hidden-xs">
             <a class="navbar-brand" href="{{url_for('index')}}">
                Penair
             </a>
@@ -14,18 +14,55 @@
                 List
             </a>
             {% endif %}
-            
+            <a class="navbar-brand" href="{{url_for('read_mac_list')}}">
+                List
+            </a>
           </div>
-          <div class="navbar-brand navbar-nav navbar-right" >
+          <div class="navbar-brand navbar-nav navbar-right hidden-xs" >
             <a href="{{url_for('login')}}">
               login
             </a>
+          </div>
+          <div class="navbar-brand navbar-nav navbar-right show-xs">
+            <button type="button" class="btn btn-default">
+              <span class="glyphicon glyphicon-align-justify" aria-hidden="true"></span>
+            </button>
+            
           </div>
 
         </div>
       </nav>
 {% endblock %}
 {% block content %}
+<div class="jumbotron ">
+    <div class="page-header">
+        <h1>Pentair </h1>
+        <p><small> 520489 label => Mac_address </small></p>
+        <img src="/static/images/pentair.png">
+    </div>
+</div>
+<div class ="container-fluid col-sm-8 col-sm-offset-2 col-xs-12">
+
+    <div class="row">
+      <div class="col-sm-4 col-md-4">
+        <a href="#" class="thumbnail">
+          <img src="..." alt="...">
+        </a>
+      </div>
+      <div class="col-sm-4 col-md-4">
+          <a href="#" class="thumbnail">
+            <img src="..." alt="...">
+          </a>
+      </div>
+      <div class="col-sm-4 col-md-4">
+        <a href="#" class="thumbnail">
+          <img src="..." alt="...">
+        </a>
+      </div>
+    </div>
+
+
+</div>
 
 
 {% endblock %}
