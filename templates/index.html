@@ -1,10 +1,17 @@
 {% extends "bootstrap/base.html" %}
 
-
+{% block metas %}
+<link rel="icon" href="/favicon.ico" type="image/x-icon">
+{% endblock metas  %}
 {% block styles%}
 {{super()}}
 <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+
+
+
 <link type=text/css href="{{ url_for('static', filename='css/mystyles.css') }}" rel="stylesheet">
+
+
 {% endblock %}
 {% block html_attribs %} lang="en"{% endblock %}
 
@@ -21,15 +28,23 @@
                 List
             </a>
             {% endif %}
-            <a class="navbar-brand" href="{{url_for('read_mac_list')}}">
-                List
-            </a>
+           
           </div>
           {% if current_user.name %}
-          <a class="navbar-brand navbar-right" href="">
-            {{current_user.name}}
-            logout
-          </a>
+          <div class="nav navbar-nav navbar-brand navbar-right">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{current_user.name}} <span class="caret"></span>
+              </a>
+                <ul class="dropdown-menu">
+                  <li><a href="#">Setting</a></li>
+                  <li role="separator" class="divider"></li>
+                  <li><a href={{url_for('logout')}}>logout</a></li>
+                </ul>
+
+
+          </div>
+          
+         
+          
           {% else %}
           <a class="navbar-brand navbar-right" href="{{url_for('login')}}">
               login

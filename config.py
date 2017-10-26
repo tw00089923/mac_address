@@ -7,3 +7,4 @@ SQLALCHEMY_DATABASE_URI = "mysql+pymysql://liaowenhao:kcr01260@localhost:3306/el
 #mysql+pymysql://liaowenhao:kcr01260@localhost:3306/elanhome
 SECRET_KEY = os.urandom(20)
 SQLALCHEMY_TRACK_MODIFICATIONS = True
+mysql_database_charse ="utf8mb4_unicode_ci"

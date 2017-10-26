@@ -40,9 +40,11 @@
                     <td>{{elanhome.date}}</td>
                     <td>{{elanhome.mac_address}}</td>
                     {% if current_user.is_authenticated %}
-                    <button>
-                        <span class="glyphicon glyphicon-cog"></span>
-                    </button>
+                    <td>
+                        <button class="btn btn-default">
+                            <span class="glyphicon glyphicon-cog"></span>
+                        </button>
+                    </td>
                     {% endif %}
                 </tr>   
                 {% endfor %}

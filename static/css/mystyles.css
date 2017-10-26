@@ -7,3 +7,9 @@
 
     font-family: 'Open Sans', sans-serif"
 }
+
+@import url(//fonts.googleapis.com/earlyaccess/cwtexkai.css);
+
+.font-style-my-zh {
+    font-family: 'cwTeXHei', sans-serif;
+}

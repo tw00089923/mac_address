@@ -29,7 +29,6 @@ def login():
     if request.method == "POST" and form.validate_on_submit():
         user = userdb.query.filter_by(name=request.form["username"]).first()
         if user.password == request.form['password']:
-            flash("login seuccess!!")
             login_user(user)
             return redirect(url_for('index'))    
     return render_template('login.html',form=form)

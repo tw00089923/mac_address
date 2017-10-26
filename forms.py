@@ -1,11 +1,12 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, DateTimeField, TextField, PasswordField, IntegerField 
+from wtforms import StringField, DateTimeField, TextField, PasswordField, IntegerField, BooleanField
 from wtforms.validators import DataRequired
 
 
 class Users(FlaskForm):
     username = TextField('使用者帳號',[DataRequired()])
     password = PasswordField('密碼登入',[DataRequired()])
+    remember_me = BooleanField('記住我', default=False)
 
 
 class Mac_address(FlaskForm):
