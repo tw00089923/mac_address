@@ -9,56 +9,65 @@
 {% block styles%}
 {{super()}}
 
-
-
 {% endblock %}
 
 {% block content%}
 
 <div class="container">
-    <div class="col-md-8 col-md-offset-2">
+    <div class="col-md-6 col-md-offset-3">
 
-   
-        <div>
-            <h3 class="text-center">使用者登入</h3>
-        </div>    
-        <div class="">                        
+    
+        <div class="list-group">                        
             {% with messages = get_flashed_messages()%}
                 {% if messages %}
-                    <ul class="list-group">
+                    <ul class="alert alert-danger">
                         {% for message in messages %}
-                        <li >{{ message }}</li>
+                        <li class="danger">{{ message }}</li>
                         {% endfor %}
                     </ul>
                 {% endif %}
             {% endwith %}
         </div>
         <br>
-        <form action="" method="post" class="form-horizontal">
-            <div class="">
-                <div class="form-group">
-                    <div class="col-sm-2 control-label">
-                        {{form.username.label}}
-                    </div>
-                    <div class="col-sm-9">
-                        {{form.username(class_="form-control")}}
-                    </div>    
-                </div>
-                <br>
-                <div class="form-group">
-                    <div class="col-sm-2 control-label">
-                        {{form.password.label}}
-                    </div>
-                    <div class="col-sm-9">
-                        {{form.password(class_="form-control")}}
-                    </div>    
-                    {{form.csrf_token}}
-                </div>
-                <div class="text-right form-group form-group">
-                    <button class="btn btn-default">提交</button>
-                </div>
+        <div class="panel panel-default">
             
-        </form>
+
+            <div class="panel-heading">
+                <h3 class="panel-title font-style-my_love">使用者登入</h3>
+            </div> 
+            <br>  
+            <form action="" method="post" class="form-horizontal">
+                <div class="panel-body ">
+                    <div class="form-group">
+                        <div class="col-sm-3 control-label">
+                            {{form.username.label}}
+                        </div>
+                        <div class="col-sm-8">
+                            {{form.username(class_="form-control")}}
+                        </div>    
+                    </div>
+                    <br>
+                    <div class="form-group">
+                        <div class="col-sm-3 control-label">
+                            {{form.password.label}}
+                        </div>
+                        <div class="col-sm-8">
+                            {{form.password(class_="form-control")}}
+                        </div>    
+                        {{form.csrf_token}}
+                    </div>
+                    <br>
+
+                    <div class="col-sm-5 col-sm-offset-4">
+                        <div class="text-right form-group" style="margin-right:55px">
+                            <button class="btn btn-group-justified btn-default font-style-my_love">登入</button>
+                        </div>
+                    </div>
+
+                
+            </form>
+        </div>
+        
 
     </div>
 </div>

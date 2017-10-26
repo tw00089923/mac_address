@@ -4,8 +4,8 @@ from wtforms.validators import DataRequired
 
 
 class Users(FlaskForm):
-    username = TextField('使用者帳號')
-    password = PasswordField('密碼登入')
+    username = TextField('使用者帳號',[DataRequired()])
+    password = PasswordField('密碼登入',[DataRequired()])
 
 
 class Mac_address(FlaskForm):

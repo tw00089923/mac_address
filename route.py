@@ -1,8 +1,8 @@
-from flask import render_template, request, flash, url_for, session
+from flask import render_template, request, flash, url_for, session, redirect
 from myapp import app, login_manager
-from forms import Mac_address,Users
-from models import data,Userdb
-from flask_login import login_required
+from forms import Mac_address, Users
+from models import data, Userdb
+from flask_login import login_required,login_user,logout_user
 
 
 
@@ -12,6 +12,9 @@ def unauthorized():
     if session['username'] == None:
         flash('你需要帳戶登錄')
     return render_template('/login.html')
+@login_manager.user_loader
+def load_user(user_id):
+    return Userdb.query.get(user_id)
 
 @app.route('/')
 def index():
@@ -20,13 +23,21 @@ def index():
 
 @app.route('/login',methods=['POST','GET'])
 def login():
+    error=None
     form = Users()
     userdb = Userdb()
-    if request.method == "POST":
-        user = userdb.query.filter_by(username=form.username).first()
-
+    if request.method == "POST" and form.validate_on_submit():
+        user = userdb.query.filter_by(name=request.form["username"]).first()
+        if user.password == request.form['password']:
+            flash("login seuccess!!")
+            login_user(user)
+            return redirect(url_for('index'))    
     return render_template('login.html',form=form)
-
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('index')) 
 
 @app.route('/read_mac')
 @app.route('/read_mac/<int:page>')
