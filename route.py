@@ -1,6 +1,6 @@
 from flask import render_template, request, flash, url_for, session, redirect
 from myapp import app, login_manager
-from forms import Mac_address, Users
+from forms import Mac_address, Users, Create_mac
 from models import data, Userdb
 from flask_login import login_required,login_user,logout_user
 
@@ -18,7 +18,7 @@ def load_user(user_id):
 
 @app.route('/')
 def index():
-    form = Mac_address()
+    
     return render_template('index.html')
 
 @app.route('/login',methods=['POST','GET'])
@@ -43,7 +43,23 @@ def logout():
 def read_mac_list(page=1):
     data_from_db = data.query.paginate(page=page,per_page=40)
     return render_template('read_mac.html',data = data_from_db )
-@app.route('/read_mac/edit/<int:index>')
-def edit_mac(index):
-    mac_edit = data.query.filterby(index)
-    return render_template('mac_edit.html')
+
+
+@app.route('/work_order',methods=['POST'])
+def work_order():
+    form = Create_mac()
+    
+    if request.method == "POST":
+        work_number =  request.form['work_order_number']
+        return redirect(url_for('mac_add',work_order=work_number))
+    return render_template('work_order.html',form=form)
+
+@app.route('/<string:work_order>/list',methods=['GET', 'POST'])
+def mac_add(work_order):
+    form = Mac_address()
+    Mac_db = data()
+    print(form.errors)
+    if request.method == "POST" and form.validate():
+        print("OK")
+
+    return render_template('mac_add.html',form=form)

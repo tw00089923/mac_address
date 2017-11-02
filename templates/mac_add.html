@@ -1,0 +1,44 @@
+{% extends "index.html" %}
+{% block script %}
+{{super()}}
+{% endblock %}
+{% block styles%}
+{{super()}}
+{% endblock %}
+
+{% block content%}
+
+{% from "macro.html" import render_field %}
+ 
+     
+ 
+    <div class="col-md-5 col-md-offset-3">
+        <br>
+        <div class="panel panel-default">
+            
+
+            <div class="panel-heading">
+                <h2 class="panel-title text-center">工單號碼</h2>
+            </div> 
+            <br>  
+            <form action="" method="post" class="form-horizontal">
+                <div class="panel-body ">
+                    <div class="form-group">
+                       {{render_field(form.pollet_index)}}  
+                    </div>
+
+
+
+                    <div class="col-sm-5 col-sm-offset-4">
+                        <div class="text-right form-group" style="margin-right:55px">
+                            <button class="btn btn-group-justified btn-default font-style-my_love">提交</button>
+                        </div>
+                    </div>
+
+                
+            </form>
+        </div>
+        
+
+    </div>
+{% endblock %}

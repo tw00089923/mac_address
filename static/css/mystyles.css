@@ -13,3 +13,8 @@
 .font-style-my-zh {
     font-family: 'cwTeXHei', sans-serif;
 }
+
+.home_page{
+    background-color:blue;
+    border:1px #ccc solid;
+}
