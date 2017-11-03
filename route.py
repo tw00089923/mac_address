@@ -3,7 +3,7 @@ from myapp import app, login_manager
 from forms import Mac_address, Users, Create_mac
 from models import data, Userdb
 from flask_login import login_required,login_user,logout_user
-
+import time 
 
 
 @login_manager.unauthorized_handler
@@ -45,20 +45,23 @@ def read_mac_list(page=1):
     return render_template('read_mac.html',data = data_from_db )
 
 
-@app.route('/work_order',methods=['POST'])
+@app.route('/work_order',methods=['POST','GET'])
 def work_order():
     form = Create_mac()
-    
-    if request.method == "POST":
+    if request.method == "POST" and form.validate():
         work_number =  request.form['work_order_number']
         return redirect(url_for('mac_add',work_order=work_number))
+
     return render_template('work_order.html',form=form)
 
 @app.route('/<string:work_order>/list',methods=['GET', 'POST'])
 def mac_add(work_order):
     form = Mac_address()
     Mac_db = data()
-    print(form.errors)
+    form.pollet_index.data= 1
+    form.work_order.data= work_order
+    form.date.data = time
+
     if request.method == "POST" and form.validate():
         print("OK")
 
