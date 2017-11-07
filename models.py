@@ -25,3 +25,4 @@ class data(db.Model):
     mac_address = db.Column(db.String(8),nullable=False)
     pollet_index = db.Column(db.Integer,nullable=False)
     work_order = db.Column(db.String(10))
+

@@ -1,9 +1,9 @@
 from flask import render_template, request, flash, url_for, session, redirect
-from myapp import app, login_manager
+from myapp import app, login_manager, db
 from forms import Mac_address, Users, Create_mac
 from models import data, Userdb
 from flask_login import login_required,login_user,logout_user
-import time 
+import datetime
 
 
 @login_manager.unauthorized_handler
@@ -58,11 +58,34 @@ def work_order():
 def mac_add(work_order):
     form = Mac_address()
     Mac_db = data()
-    form.pollet_index.data= 1
+    index = Mac_db.query.filter_by(work_order=work_order).all()
+    print(len(index))
+    form.pollet_index.data= int(1+len(index)/40)
+
+    print(form.pollet_index.data)
     form.work_order.data= work_order
-    form.date.data = time
+    form.date.data = datetime.datetime.now()
+    message = {}
 
     if request.method == "POST" and form.validate():
-        print("OK")
+        mac_address = request.form['mac_address']
+        mac = Mac_db.query.filter_by(mac_address=mac_address).first()
+        if not mac: 
+            pollet_index = request.form['pollet_index']
+            date = request.form['date']
+            work_order = request.form['work_order']
+            datetime_format =datetime.datetime.strftime(datetime.datetime.now(), '%Y/%m/%d')
+            mac_data = data(date=datetime_format,mac_address=mac_address,pollet_index=pollet_index,work_order=work_order)
+            db.session.add(mac_data)
+            db.session.commit()
+            message["text"] = "新增成功!"
+            message["color"] = "success"
+            form.mac_address.data = None
+        else:
+            message["text"] = "資料庫有重複值" 
+            message["color"] = "danger"
+    if request.method == "GET":
+        print("Reload")
 
-    return render_template('mac_add.html',form=form)
+
+    return render_template('mac_add.html',form=form,message=message,query_data=index)
