@@ -1,3 +1,5 @@
 # virtualenv virtualenv
 # . venv/Scripts/activate
 #pip install flask flask-bootstrap flask-sqlalchemy flask-wtf flask-migrate Flask-Script
+
+#有遇到 Mysql 1336 python 內建編碼 gbk 需轉成utf-8

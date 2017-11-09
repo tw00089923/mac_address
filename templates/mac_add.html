@@ -1,27 +1,22 @@
 {% extends "index.html" %}
 {% block script %}
-
-
+<script type=text/javascript src="{{url_for('static', filename='scripts/d3.min.js') }}"></script>
+<script>
+d3.selectAll("p").style("color", "white");
+</script>
 {{super()}}
-{% endblock %}
 {% block styles%}
 <link type=text/css href="{{ url_for('static', filename='css/mac_add.css') }}" rel="stylesheet">
 {{super()}}
 {% endblock %}
-
+{% endblock %}
 {% block content%}
-
 {% from "macro.html" import render_field %}
- 
-     
+
 <div class="container">
-
-
     <div class="col-md-6 col-md-offset-3">
         <br>
         <div class="panel panel-info">
-            
-
             <div class="panel-heading">
                 <h2 class="panel-title text-center panel_title"> 新增 Mac_address </h2>
             </div> 
@@ -42,13 +37,24 @@
                         <div class="text-right form-group" style="margin-right:55px">
                             <button class="btn btn-info btn-group-justified ">提交</button>
                         </div>
-                    </div>
-
-                
+                    </div>          
             </form>
         </div>
-        
-
     </div>
+    <div class="col-md-10">    
+        {% if query_data  %}
+        <div class="text-center">
+                工單號碼&nbsp;&nbsp; <span class="label label-primary">{{form.work_order.data}} </span>  &nbsp;&nbsp;: 總計 <span class="badge">{{query_data|length}}</span>  筆資料 
+        </div>
+        <div>
+            {% for data in query_data%}
+                {{data.mac_address}},
+            {% endfor %}
+        </div>  
+        {% endif %}
+        <p>dssdd</p>
+        <button >Click</button>
+    </div>
+
 </div>
 {% endblock %}

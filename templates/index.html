@@ -2,6 +2,7 @@
 
 {% block metas %}
 <link rel="icon" href="/favicon.ico" type="image/x-icon">
+<meta charset="utf-8">
 {% endblock metas  %}
 {% block styles%}
 
@@ -70,12 +71,7 @@
 {% endblock %}
 
 {% block scripts %}
-<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
-<script>
-  var sampleSVG = d3.select("#canvas").append("svg").attr("width", 100).attr("height", 100);
-        
-</script>
-
+<script type=text/javascript src="{{url_for('static', filename='scripts/d3.min.js') }}"></script>
 {{super()}}
 {% endblock %}
 

@@ -6,19 +6,21 @@
 <div class="container-fluid col-sm-offset-3 col-sm-6">
 
     <div class="pagination">
-        {% for page_index in data.iter_pages() %}
-            {% if page_index %}
-                {% if page_index != page_index.page %} 
-                    <a href="{{ url_for('read_mac_list',page=page_index)}}"> {{page_index}} </a>
+        {% if data.iter_pages() %}
+            {% for page_index in data.iter_pages() %}
+                {% if page_index %}
+                    {% if page_index != page_index.page %} 
+                        <a href="{{ url_for('read_mac_list',page=page_index)}}"> {{page_index}} </a>
+                    {% else %}
+                        <strong> {{page_index}} </strong>
+                    {% endif %}
                 {% else %}
-                    <strong> {{page_index}} </strong>
-                {% endif %}
-            {% else %}
-                <span class=ellipsis>…</span>
-            {% endif%}
-        {% endfor %}
-        {% if data.has_next %}
-        <a href="{{ url_for('read_mac_list',page=data.page + 1)}}">Next &raquo;</a>
+                    <span class=ellipsis>…</span>
+                {% endif%}
+            {% endfor %}
+            {% if data.has_next %}
+            <a href="{{ url_for('read_mac_list',page=data.page + 1)}}">Next &raquo;</a>
+            {% endif %}
         {% endif %}
     </div>
     <div >
@@ -28,6 +30,7 @@
                     <th>序號</th>
                     <th>日期</th>
                     <th>Mac_address</th>
+                    <th>工單號碼</th>
                     {% if current_user.is_authenticated %}
                     <th>修改<th>
                     {% endif %}
@@ -39,6 +42,12 @@
                     <td>{{elanhome.data_id}}</td>
                     <td>{{elanhome.date}}</td>
                     <td>{{elanhome.mac_address}}</td>
+                    {% if elanhome.mac_work_order %}
+                    <td>{{elanhome.mac_work_order}}</td>
+                    {% else %}
+                    <td><a><span class="glyphicon glyphicon-cog"></span></a></td>
+                    {% endif %}
+
                     {% if current_user.is_authenticated %}
                     <td>
                         <button class="btn btn-default">

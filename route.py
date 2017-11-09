@@ -54,15 +54,14 @@ def work_order():
 
     return render_template('work_order.html',form=form)
 
-@app.route('/<string:work_order>/list',methods=['GET', 'POST'])
+@app.route('/<string:work_order>/addlist',methods=['GET', 'POST'])
 def mac_add(work_order):
     form = Mac_address()
     Mac_db = data()
+   
     index = Mac_db.query.filter_by(work_order=work_order).all()
-    print(len(index))
-    form.pollet_index.data= int(1+len(index)/40)
 
-    print(form.pollet_index.data)
+    form.pollet_index.data= int(1+len(index)/40)
     form.work_order.data= work_order
     form.date.data = datetime.datetime.now()
     message = {}
@@ -81,11 +80,23 @@ def mac_add(work_order):
             message["text"] = "新增成功!"
             message["color"] = "success"
             form.mac_address.data = None
+            index = Mac_db.query.filter_by(work_order=work_order).all()
         else:
             message["text"] = "資料庫有重複值" 
             message["color"] = "danger"
     if request.method == "GET":
         print("Reload")
 
-
     return render_template('mac_add.html',form=form,message=message,query_data=index)
+
+@app.route('/<string:work_order>/readlist',methods=['GET', 'POST'])
+def mac_read(work_order):
+    data_from_db = data.query.filter(work_order=work_order)
+    return render_template('read_mac.html',data = data_from_db )
+
+@app.route('/<string:work_order>/readlist/update',methods=['GET', 'POST'])
+def mac_update(work_order):
+    return render_template('read_mac.html',data = data_from_db )
+@app.route('/<string:work_order>/readlist/delete',methods=['GET', 'POST'])
+def mac_delete(work_order):
+    return render_template('read_mac.html',data = data_from_db )
