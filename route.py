@@ -17,9 +17,12 @@ def load_user(user_id):
     return Userdb.query.get(user_id)
 
 @app.route('/')
-def index():
-    
+def index():    
     return render_template('index.html')
+
+@app.route('/listread')
+def listread():
+    return render_template('listread.html')
 
 @app.route('/login',methods=['POST','GET'])
 def login():
@@ -100,3 +103,6 @@ def mac_update(work_order):
 @app.route('/<string:work_order>/readlist/delete',methods=['GET', 'POST'])
 def mac_delete(work_order):
     return render_template('read_mac.html',data = data_from_db )
+
+
+
