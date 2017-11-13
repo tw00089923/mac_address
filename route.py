@@ -63,8 +63,9 @@ def mac_add(work_order):
     Mac_db = data()
    
     index = Mac_db.query.filter_by(work_order=work_order).all()
-
-    form.pollet_index.data= int(1+len(index)/40)
+    form.pollet_index.data = 1
+    print(form.pollet_index.data)
+    print("initial")
     form.work_order.data= work_order
     form.date.data = datetime.datetime.now()
     message = {}
@@ -82,14 +83,15 @@ def mac_add(work_order):
             db.session.commit()
             message["text"] = "新增成功!"
             message["color"] = "success"
+            print(message)
             form.mac_address.data = None
-            index = Mac_db.query.filter_by(work_order=work_order).all()
+            print("post")
         else:
             message["text"] = "資料庫有重複值" 
             message["color"] = "danger"
-    if request.method == "GET":
-        print("Reload")
-
+    if request.method == "GET":  
+        print("get")
+        
     return render_template('mac_add.html',form=form,message=message,query_data=index)
 
 @app.route('/<string:work_order>/readlist',methods=['GET', 'POST'])
