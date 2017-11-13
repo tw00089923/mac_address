@@ -1,9 +1,9 @@
 {% macro render_field(field) %}
     <div class="form-group">
-        <div class="col-sm-3 control-label">
+        <div class="col-md-3 col-sm-6 control-label text-center">
             {{field.label}}
         </div>
-        <div class="col-sm-6 col-sm-offset-1">
+        <div class="col-md-6 col-sm-6 col-md-offset-1 text-center">
             {{ field(**kwargs)|safe}}
         </div>    
     </div>

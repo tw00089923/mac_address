@@ -1,15 +1,18 @@
 {% extends "index.html" %}
-{% block script %}
-<script type=text/javascript src="{{url_for('static', filename='scripts/d3.min.js') }}"></script>
-<script>
-d3.selectAll("p").style("color", "white");
-</script>
+{% block scripts %}
 {{super()}}
+<script>
+    var data = [['越南',24.62],['阿魯巴',27.62],['美國',23.62],['澳門',21.62]]
+    d3.select('#canvas').append("svg").attr("width",500)
+</script>
+
+{% endblock %}
+
 {% block styles%}
 <link type=text/css href="{{ url_for('static', filename='css/mac_add.css') }}" rel="stylesheet">
 {{super()}}
 {% endblock %}
-{% endblock %}
+
 {% block content%}
 {% from "macro.html" import render_field %}
 
@@ -33,28 +36,45 @@ d3.selectAll("p").style("color", "white");
                     {% if message %}
                     <p class="text-center text-{{message.color}}"> {{message.text}} </p>
                     {% endif %}
-                    <div class="col-sm-5 col-sm-offset-4">
-                        <div class="text-right form-group" style="margin-right:55px">
+                    <div class="col-sm-5 col-sm-offset-4 ">
+                        <div class="text-center form-group " style="margin:20px">
                             <button class="btn btn-info btn-group-justified ">提交</button>
                         </div>
                     </div>          
             </form>
         </div>
     </div>
-    <div class="col-md-10">    
-        {% if query_data  %}
-        <div class="text-center">
-                工單號碼&nbsp;&nbsp; <span class="label label-primary">{{form.work_order.data}} </span>  &nbsp;&nbsp;: 總計 <span class="badge">{{query_data|length}}</span>  筆資料 
-        </div>
-        <div>
-            {% for data in query_data%}
-                {{data.mac_address}},
-            {% endfor %}
-        </div>  
-        {% endif %}
-        <p>dssdd</p>
-        <button >Click</button>
-    </div>
 
 </div>
+<div class="container-fuild">
+        <div class="row">
+            <div class="col-sm-6">
+                   <div class="panel panel-default">
+                        <div class="panel-heading">
+                                <h2 class="panel-title text-center panel_title"> 資料庫 </h2>
+                        </div> 
+                        <div class="pannel-body">
+                                {% if query_data  %}
+                            <div class="text-center">
+                                工單號碼&nbsp;&nbsp; <span class="label label-primary">{{form.work_order.data}} </span>  &nbsp;&nbsp;: 總計 <span class="badge">{{query_data|length}}</span>  筆資料 
+                            </div>
+                            <div class="text-center">
+                                {% for data in query_data%}
+                                   <p>{{data.mac_address}}
+                                   </p> 
+                                {% endfor %}
+                            </div>  
+                                {% endif %}
+                            </div>
+                        </div>
+
+            </div>
+            <div class="col-sm-6">
+                    <div id="canvas">               
+                    </div>
+            </div>  
+        </div>
+</div>
+
+
 {% endblock %}

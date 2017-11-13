@@ -1,6 +1,8 @@
 {% extends "index.html" %}
 {% block scripts %}
 {{super()}}
+<script type=text/javascript src="{{url_for('static', filename='scripts/d3.min.js') }}">
+</script>
 <script>
     var data = [['越南',24.62],['阿魯巴',27.62],['美國',23.62],['澳門',21.62]]
     d3.select('#canvas').append("div").data(data).text(function(d){return d;})

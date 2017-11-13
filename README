@@ -3,3 +3,7 @@
 #pip install flask flask-bootstrap flask-sqlalchemy flask-wtf flask-migrate Flask-Script
 
 #有遇到 Mysql 1336 python 內建編碼 gbk 需轉成utf-8
+# Windows server deploy => mod_wsgi or Apache
+# pip install mod_wsgi
+# 若遇到問題下載 http://www.lfd.uci.edu/~gohlke/pythonlibs/#mod_wsgi 
+# 到目錄下 pip install mod_wsgi-4.4.23+ap24vc14-cp35-cp35m-win_amd64.whl (尋找適合檔名之類)
