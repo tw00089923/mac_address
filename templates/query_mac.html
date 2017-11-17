@@ -5,9 +5,7 @@
 {% block styles%}
 {{super()}}
 {% endblock %}
-{% block title%}
-    <title> Mac lookup </title>
-{% endblock %}
+
 {% block content%}
 {% from "macro.html" import render_field %}
 <div class="container">
@@ -15,13 +13,16 @@
         <br>
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <h2 class="panel-title text-center">工單號碼</h2>
+                <h2 class="panel-title text-center"> 請輸入Mac_ID </h2>
             </div> 
             <br>  
             <form action="" method="post" class="form-horizontal">
                 <div class="panel-body ">
-                    {{render_field(form.work_order_number)}}
-                    {{form.csrf_token }}
+                    <div>
+                        {{render_field(form.mac_address)}}
+                        {{form.csrf_token }}
+                    </div>
+
                     <div class="col-sm-5 col-sm-offset-4 ">
                         <div class="text-right form-group" style="margin:20px">
                             <button class="btn btn-group-justified btn-info">提交</button>

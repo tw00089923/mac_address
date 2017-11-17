@@ -1,0 +1,38 @@
+{% extends "index.html" %}
+{% block content %}
+{% from "macro.html" import render_field %}
+
+
+
+
+<div class="container">
+    <div>
+        
+    </div>
+
+    <div class="col-md-4 col-md-offset-4 col-lg-6 col-lg-offset-3">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h6 class="text-center panel_title"> Mac_update </h6>
+            </div>
+            <div class="panel-body">
+                <form action="" method="post" class="form-horizontal">
+                    <div class="form-group" style="margin-top:20px">  
+                        {{render_field(form.pollet_index)}}
+                        {{render_field(form.work_order)}}
+                        {{render_field(form.old_mac_address)}}
+                        {{render_field(form.new_mac_address)}}
+                        {{form.csrf_token}}
+                    </div>
+                    <div class="col-sm-5 col-sm-offset-4 ">
+                        <div class="text-right form-group" style="margin:20px" >
+                            <button class="btn btn-group-justified btn-info">修改</button>
+                        </div>
+                    </div>
+                </form>
+            </div>       
+        </div>        
+    </div>
+</div>
+
+{% endblock %}

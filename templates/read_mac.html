@@ -3,33 +3,16 @@
 <div>
     <h2 class="container-fluid text-center">Mac_address</h2>
 
-<div class="container-fluid col-sm-offset-3 col-sm-6">
+<div class="container-fluid col-sm-offset-2 col-sm-8">
 
-    <div class="pagination">
-        {% if data.iter_pages() %}
-            {% for page_index in data.iter_pages() %}
-                {% if page_index %}
-                    {% if page_index != page_index.page %} 
-                        <a href="{{ url_for('read_mac_list',page=page_index)}}"> {{page_index}} </a>
-                    {% else %}
-                        <strong> {{page_index}} </strong>
-                    {% endif %}
-                {% else %}
-                    <span class=ellipsis>…</span>
-                {% endif%}
-            {% endfor %}
-            {% if data.has_next %}
-            <a href="{{ url_for('read_mac_list',page=data.page + 1)}}">Next &raquo;</a>
-            {% endif %}
-        {% endif %}
-    </div>
+
     <div >
         <table class="table table-striped">
             <thead>
                 <tr>
                     <th>序號</th>
                     <th>日期</th>
-                    <th>Mac_address</th>
+                    <th>Mac_ID</th>
                     <th>工單號碼</th>
                     {% if current_user.is_authenticated %}
                     <th>修改<th>
@@ -42,8 +25,8 @@
                     <td>{{elanhome.data_id}}</td>
                     <td>{{elanhome.date}}</td>
                     <td>{{elanhome.mac_address}}</td>
-                    {% if elanhome.mac_work_order %}
-                    <td>{{elanhome.mac_work_order}}</td>
+                    {% if elanhome.work_order %}
+                    <td>{{elanhome.work_order}}</td>
                     {% else %}
                     <td><a><span class="glyphicon glyphicon-cog"></span></a></td>
                     {% endif %}
@@ -60,7 +43,33 @@
             </tbody>
         </table>
     </div>
+    <nav aria-label="navigation " class="text-center">
+            <ul class="pagination pagination-sm">
+                <li>
+                    {% if data.iter_pages() %}
+                        {%if data.has_prev%}
+                            <a href="{{ url_for('read_mac_list',page=1)}}">&laquo; </a>
+                        {% endif %} 
+                        {% for page_index in data.iter_pages() %}
+                        
+                            {% if page_index %}
+                                {% if page_index != page_index.page %} 
+                                    <a href="{{ url_for('read_mac_list',page=page_index)}}"> {{page_index}} </a>
+                                {% else %}
+                                   <h5> <strong> {{page_index}} </strong></h5>
+                                {% endif %}
+                            {% else %}
+                                <span class=ellipsis>…</span>
+                            {% endif%}
+                        {% endfor %}
+                        {% if data.has_next %}
+                            <a href="{{ url_for('read_mac_list',page=data.page + 1)}}"> &raquo;</a>
+                        {% endif %}
+                    {% endif %}
+                </li>
+            </ul>
 
+    </nav>
 
 </div>
 {% endblock %}
