@@ -1,0 +1,98 @@
+.center-center{
+    display: table-cell,
+    vertical-align: middle; 
+    
+}
+.font-style-my_love{
+
+    font-family: 'Open Sans', sans-serif"
+}
+
+@import url(//fonts.googleapis.com/earlyaccess/cwtexkai.css);
+
+.font-style-my-zh {
+    font-family: 'cwTeXHei', sans-serif;
+}
+
+
+.homepage_nav_bar{
+
+    background-color: white;
+}
+
+
+.mainboard{
+    color:blue;
+}
+.border_line{
+    border-style: solid;
+    border: black;
+    /*background-image: url("/static/images/pentair.png");*/
+
+}
+/*.font_style{
+    color:white;
+}
+*/
+.nav_size{
+
+    font-size: 10px;
+}
+.nav_size > a:hover{
+    color: red;
+}
+.nav .collapse ul > li > a ,.nav .collapse ul > li > a:hover,.nav .collapse ul > li > a:focus {
+    background-color: white;
+    color: rgb(141, 245, 193);
+    
+}
+.nav  li > a , .nav li > a:hover, .nav li > a:focus{
+    background-color :white;
+}
+
+
+.justify_panel_title{
+    height:25px;
+
+}
+.justify_panel_position{
+    margin-top:-5px;
+}
+.justify_input_column > input {
+    vertical-align: middle;
+    text-align: center;
+    margin-top:-2px; 
+    border-style: none;
+    border-bottom: 1px solid rgb(0, 153, 255);
+    width:70%;
+}
+.justify_input_column > input:focus{
+    border-color: None;
+    box-shadow: 0 1px 1px rgba(78, 219, 230, 0.075) inset, 0 0 8px rgba(49, 241, 225, 0.6);
+    outline: 0 none;
+}
+.control-label{
+    font-size:10px;
+}
+.panel{
+    box-shadow: 2px 2px 1px rgb(124, 217, 240);
+    margin-top:-10px; 
+    padding: -50px;
+}
+.btn_person{
+  
+    color: white;
+
+    font-size: 10px;
+    border-radius: 2px;
+    border: 1px solid rgb(48, 219, 241);
+    background-color: rgb(53, 208, 255);
+}
+
+
+.table_style > thead > tr > th{
+    font-size: 5px;
+}
+.table_style > tbody > tr > td{
+    font-size: 2px;
+}

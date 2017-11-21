@@ -7,3 +7,5 @@
 # pip install mod_wsgi
 # 若遇到問題下載 http://www.lfd.uci.edu/~gohlke/pythonlibs/#mod_wsgi 
 # 到目錄下 pip install mod_wsgi-4.4.23+ap24vc14-cp35-cp35m-win_amd64.whl (尋找適合檔名之類)
+
+# 若遇到CSS 更新使用ctrl+shift+R

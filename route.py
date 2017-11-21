@@ -4,6 +4,8 @@ from forms import Mac_address, Users, Create_mac, Update_mac, Query_mac
 from models import data, Userdb, modify_data_mac
 from flask_login import login_required,login_user,logout_user
 import datetime
+
+
 @login_manager.unauthorized_handler
 def unauthorized():
     if session['username'] == None:
@@ -76,8 +78,6 @@ def mac_add(work_order):
             message["color"] = "danger" 
     if request.method == "GET":
         index=Mac_db.query.filter_by(work_order=work_order).all()
-        form.pollet_index.data = int(len(index)/40+1)
-        print("GET {}".format(len(index))) 
     index=Mac_db.query.filter_by(work_order=work_order).all()
     #寫入json給D3使用
     json_file = json.dumps([i.serialize for i in index])

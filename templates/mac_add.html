@@ -40,11 +40,13 @@
     g.selectAll(".bar")
         .data(net)
         .enter().append("rect")
-        .attr("class","bar")
+        .attr("class","bar_1")
+        .attr("fill",function(d){if(d.values.length==40){return "blue"}else{return "red"}})
         .attr("x",function(d){return x(d.key);})
         .attr("y",function(d){return y(d.values.length);})
         .attr("width", x.bandwidth())
         .attr("height",function(d){return canvas_cal_height-y(d.values.length)});
+        
     $(".bar").css('fill','steelblue');
     //$(".bar").hover(function(){(".bar").css('fill','red')});
     $(window).on("resize",function(){
@@ -54,13 +56,14 @@
     // 自動增加 盤數 不想想在後端 寫在前端
     $('#pollet_index').val(parseInt(index_mac.length/40)+1);
     // #question 追加提示字串
-
+    $("html,body").animate({ scrollTop: 100}, 0);
+    
 
 </script>
 {% endblock %}
 {% block styles%}
 {{super()}}
-<link href="{{ url_for('static', filename='css/mac_add.css') }}" rel="stylesheet">
+
 {% endblock %}
 {% block content%}
 {% from "macro.html" import render_field %}
@@ -70,8 +73,8 @@
         <br>
             <div class="col-md-6">
         <div class="panel panel-primary">
-            <div class="panel-heading" >
-              <h6 >新增 Mac_address</h6>
+            <div class="panel-heading justify_panel_title" >
+              <h6 class="justify_panel_position text-center">新增 Mac_address</h6>
             </div> 
             <br>  
             <form action="" method="post" class="form-horizontal">
@@ -90,7 +93,7 @@
                     <div class="col-sm-5 col-sm-offset-4 ">
             
                         <div class="text-center form-group " style="margin:30px">
-                            <button class="btn btn-info btn-group-justified ">提交</button>
+                            <button class="btn btn_person ">提交</button>
                             
                         </div>
                     </div>          
@@ -104,7 +107,7 @@
         <div class="row">
             <div class="col-sm-6">
                    <div class="panel panel-info">
-                       <form action="get" method="get">
+                      
                             <div class="panel-heading">
                                     <div class="panel-title text-center panel_title"> 工單號碼&nbsp;<span class="label label-primary">{{form.work_order.data}} </span></div>
                             </div> 
@@ -120,10 +123,8 @@
                                     {% endif %}
                                 </div>
                             </div>
-                        
-                       </form>
-                       
-
+              
+          
             </div>
             <div class="col-sm-6">
                 <div class="panel panel-info">
