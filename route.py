@@ -45,15 +45,20 @@ def work_order():
     return render_template('work_order.html',form=form)
 @app.route('/<string:work_order>/addlist',methods=['GET', 'POST'])
 def mac_add(work_order):
+    #初始化 form && Mac_db
     form = Mac_address()
     Mac_db = data()
-    index = Mac_db.query.filter_by(work_order=work_order).all()
-    form.pollet_index.data = int(len(index)/40+1)
+    #訊息提供前端
+    message = {}
+    #提供新的Form 資料 更新完頁面後 更新資料
+
+    #print("INITTIAL _ {}".format(form.pollet_index.data))
     form.work_order.data= work_order
     form.date.data = datetime.datetime.now()
-    json_file = json.dumps([i.serialize for i in index])
-    message = {}
-    if request.method == "POST" and form.validate():
+  
+    
+    #接收 Method 方法 
+    if request.method == "POST" and form.validate_on_submit():
         mac_address = request.form['mac_address']
         mac = Mac_db.query.filter_by(mac_address=mac_address).first()
         if not mac: 
@@ -64,13 +69,19 @@ def mac_add(work_order):
             mac_data = data(date=datetime_format,mac_address=mac_address,pollet_index=pollet_index,work_order=work_order)
             db.session.add(mac_data)
             db.session.commit()
-            message = {"text":"新增成功!","color":"success"}
             form.mac_address.data = None
-            redirect(url_for('mac_add',form=form,message=message,query_data=index,work_order=work_order))
+            message = {"text":"新增成功!","color":"success"}
         else:
             message["text"] = "資料庫有重複值" 
-            message["color"] = "danger"
-    return render_template('mac_add.html',form=form,message=message,query_data=index,data_d3=json_file)
+            message["color"] = "danger" 
+    if request.method == "GET":
+        index=Mac_db.query.filter_by(work_order=work_order).all()
+        form.pollet_index.data = int(len(index)/40+1)
+        print("GET {}".format(len(index))) 
+    index=Mac_db.query.filter_by(work_order=work_order).all()
+    #寫入json給D3使用
+    json_file = json.dumps([i.serialize for i in index])
+    return render_template('mac_add.html', form=form, message=message, query_data=index, data_d3=json_file)
 @app.route('/readlist',methods=['GET', 'POST'])
 def query_mac():
     form = Query_mac()

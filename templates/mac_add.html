@@ -2,29 +2,65 @@
 {% block scripts %}
 {{super()}}
 <script>   
+    // 前端資料庫 
     var mac_data = {{data_d3|safe}};
     var index_mac =[];
     for (var i = 0; i < mac_data.length ; i ++ ){
         if (index_mac.indexOf(mac_data[i].pollet_index) === -1) {
-            index_mac.push(mac_data[i].pollet_index);
+            index_mac.push(mac_data[i]);
         }
-    }
-    check_point_position = [];
-    var select_name = d3.select('#canvas').append("svg").attr("width", 350).attr("height", 150);
-    var select_body = select_name.selectAll("circle").data(index_mac).enter().append("circle");
-    var select_cirle = select_body.attr("cx", function(d,i){return 25+25*i; }).attr("cy", 25).attr("r", 10 ).style("fill", function(d){return color = "green";});
-    //var left_div_width = $('#lottos').width(), left_div_height = $('#lottos').height(), left_div_radius=Math.min(left_div_width,left_div_height)/2;
+    };
+    index_mac.sort(function(a,b){ return a.pollet_index-b.pollet_index;});
+    var margin = {top:20, right:20, bottom:20, left:40 };
+    var canvas_width = $('#canvas').width()-margin.right-margin.left, canvas_height=250, canvas_cal_height=canvas_height-margin.top-margin.bottom;
+    var select_name = d3.select('#canvas').append("svg").attr("width", canvas_width).attr("height", canvas_height);
+   
+    //var select_body = select_name.selectAll("circle").data(index_mac).enter().append("circle");
+    //var select_cirle = select_body.attr("cx", function(d,i){return 25+25*i; }).attr("cy", 25).attr("r", 10 ).style("fill", function(d){return color = "green";});
+    var x = d3.scaleBand().rangeRound([0,canvas_width]).padding(0.1),y = d3.scaleLinear().rangeRound([canvas_height-margin.bottom-margin.top, 0]).domain([0,50]);
+    var stand_x = d3.scaleBand().rangeRound([0,canvas_width]);
+    var g = select_name.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
     
-    
-    //var half_c = d3.select('#lottos').append("svg").attr("width",left_div_width).attr("height",150);
-    //var path = d3.arc().outerRadius(left_div_width/10).innerRadius(left_div_width/12).startAngle(-Math.PI/2).endAngle(Math.PI/2);
-    //var half_c_c = half_c.append("g").append("path").attr("fill","blue").attr("d",path).attr("transform", "translate(150,150)");
+    g.append("g")
+        .attr("class", "")
+        .attr("transform", "translate(0," +canvas_cal_height +")")
+        .call(d3.axisBottom(x));
+    g.append("g")
+        .attr("class", "axis axis--y")
+        .call(d3.axisLeft(y).ticks(5))
+        .append("text")
+    g.append("g").attr("class", "")
+        .attr("stroke-dasharray",2)
+        .attr("stroke","#b596af")
+        .attr("transform", "translate(0,42)")
+        .call(d3.axisBottom(stand_x));
+    var net = d3.nest().key(function(d){return d.pollet_index;}).entries(index_mac);
+    console.log(net)
+    x.domain(net.map(function(d){return d.key;}));
+    g.selectAll(".bar")
+        .data(net)
+        .enter().append("rect")
+        .attr("class","bar")
+        .attr("x",function(d){return x(d.key);})
+        .attr("y",function(d){return y(d.values.length);})
+        .attr("width", x.bandwidth())
+        .attr("height",function(d){return canvas_cal_height-y(d.values.length)});
+    $(".bar").css('fill','steelblue');
+    //$(".bar").hover(function(){(".bar").css('fill','red')});
+    $(window).on("resize",function(){
+        var resize = $('#canvas').width();
+        select_name.attr("width",resize-margin.left);
+    });
+    // 自動增加 盤數 不想想在後端 寫在前端
+    $('#pollet_index').val(parseInt(index_mac.length/40)+1);
+    // #question 追加提示字串
+
 
 </script>
 {% endblock %}
 {% block styles%}
-<link type=text/css href="{{ url_for('static', filename='css/mac_add.css') }}" rel="stylesheet">
 {{super()}}
+<link href="{{ url_for('static', filename='css/mac_add.css') }}" rel="stylesheet">
 {% endblock %}
 {% block content%}
 {% from "macro.html" import render_field %}
@@ -34,8 +70,8 @@
         <br>
             <div class="col-md-6">
         <div class="panel panel-primary">
-            <div class="panel-heading">
-                <div class="text-center panel_title"> 新增 Mac_address </div>
+            <div class="panel-heading" >
+              <h6 >新增 Mac_address</h6>
             </div> 
             <br>  
             <form action="" method="post" class="form-horizontal">
@@ -49,12 +85,17 @@
                     {% if message %}
                     <p class="text-center text-{{message.color}}"> {{message.text}} </p>
                     {% endif %}
+
+                    
                     <div class="col-sm-5 col-sm-offset-4 ">
+            
                         <div class="text-center form-group " style="margin:30px">
                             <button class="btn btn-info btn-group-justified ">提交</button>
+                            
                         </div>
                     </div>          
             </form>
+            
         </div>
     </div>
 
@@ -63,29 +104,46 @@
         <div class="row">
             <div class="col-sm-6">
                    <div class="panel panel-info">
-                        <div class="panel-heading">
-                                <h2 class="panel-title text-center panel_title"> 資料庫 </h2>
-                        </div> 
-                        <div class="pannel-body">
-                                {% if query_data  %}
-                            <div class="text-center" style="margin:20px">
-                                工單號碼&nbsp;<span class="label label-primary">{{form.work_order.data}} </span>  &nbsp; <span class="badge">{{query_data|length}}</span>   &nbsp; 筆資料</p>
+                       <form action="get" method="get">
+                            <div class="panel-heading">
+                                    <div class="panel-title text-center panel_title"> 工單號碼&nbsp;<span class="label label-primary">{{form.work_order.data}} </span></div>
                             </div> 
-                                {% endif %}
+                            <div class="pannel-body">
+                                    {% if query_data  %}
+                                <div class="text-center" style="margin:20px">
+                                     &nbsp; <span class="badge">{{query_data|length}}</span>   &nbsp; 筆資料</p>
+                                </div> 
+                                    {% else%}
+                                <div class="text-center" style="margin:20px">
+                                    工單內無資料
+                                </div>
+                                    {% endif %}
+                                </div>
                             </div>
-                        </div>
+                        
+                       </form>
+                       
 
             </div>
             <div class="col-sm-6">
                 <div class="panel panel-info">
                     <div class="panel-heading">
-                            <h2 class="panel-title text-center panel_title"> 檢查點 </h2>
+                            <h2 class="panel-title text-center panel_title"> Check Point </h2>
                     </div> 
                     <div class="pannel-body">
                             <div id="canvas"> 
                                            
                             </div>
+                            <div class="text-left text-danger">
+                                <ul>
+                                        <li> 每盤為40個 </li>
+                                        <li> 出現超過40個請點擊盤數修正 </li>
+
+                                </ul>
+                            
+                            </div>
                     </div>
+                    
                 </div>   
             </div>  
         </div>

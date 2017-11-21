@@ -2,3 +2,17 @@
     font-family: sans-serif
     color: blue;
 }
+
+.panel_css{
+    font-size: 8px;
+    margin-bottom: -20px;
+    margin-top: -20px
+    color : blue;
+
+}
+
+#title_css{
+    font-size: 8px;
+    margin-bottom: -20px;
+    margin-top: -20px
+}

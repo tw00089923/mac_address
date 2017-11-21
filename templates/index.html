@@ -29,47 +29,47 @@
 <nav class="navbar navbar-default ">
         <div class="container-fluid">
           <div class="navbar-header ">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
             <a class="navbar-brand" href="{{url_for('index')}}">
                Penair
             </a>
-            <a href="#" class="dropdown-toggle navbar-brand hidden-xs" data-toggle="dropdown" role="button" aria-haspopup="flase" aria-expanded="true"> Data
-            </a>
-            <ul class="dropdown-menu">
-              <li><a class="navbar-text" href="{{url_for('read_mac_list')}}"><span class="glyphicon glyphicon-list-alt" aria-hidden="true" ></span>  全部資料 </a></li>
-              <li><a class="navbar-text" href="{{url_for('work_order')}}"><span class="glyphicon glyphicon-pencil" aria-hidden="true" ></span>新增單筆資料 </a></li>
-              <li><a class="navbar-text" href="{{url_for('query_mac')}}"><span class="glyphicon glyphicon-refresh" aria-hidden="true" ></span>查詢/修改單筆資料 </a></li>
-            </ul>
             {% if current_user.is_authenticated %}
             {% endif %}
-           
           </div>
-          {% if current_user.name %}
-          <div class="nav navbar-nav navbar-brand navbar-right hidden-xs">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{current_user.name}} <span class="caret"></span>
-              </a>
-                <ul class="dropdown-menu">
-                  <li><a href="#">Setting</a></li>
-                  <li role="separator" class="divider"></li>
-                  <li><a href={{url_for('logout')}}>logout</a></li>
-                </ul>
-
-
+          <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+              <ul class="nav navbar-nav navbar-right">
+                {% if current_user.name %}
+               
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle text-center" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Pentair Data <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a class="navbar-text" href="{{url_for('read_mac_list')}}"><span class="glyphicon glyphicon-list-alt" aria-hidden="true" ></span>  全部資料 </a></li>
+                        <li><a class="navbar-text" href="{{url_for('work_order')}}"><span class="glyphicon glyphicon-pencil" aria-hidden="true" ></span>新增單筆資料 </a></li>
+                        <li><a class="navbar-text" href="{{url_for('query_mac')}}"><span class="glyphicon glyphicon-refresh" aria-hidden="true" ></span>查詢/修改單筆資料 </a></li>
+                    </ul>
+                </li>
+                <li class="dropdown text-center">
+                  <a href="#" class="dropdown-toggle " data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{current_user.name}} <span class="caret"></span>
+                  </a>
+                  <ul class="dropdown-menu">
+                    <li><a href="#">Setting</a></li>
+                    <li role="separator" class="divider"></li>
+                    <li><a href={{url_for('logout')}}>logout</a></li>
+                  </ul>
+                </li>
+              {% else %}
+                <li><a class="" href="{{url_for('login')}}">login</a></li>
+              {% endif %}
+              </ul>
           </div>
-          
-         
-          
-          {% else %}
-          <a class="navbar-brand navbar-right hidden-xs" href="{{url_for('login')}}">
-              login
-          </a>
-          {% endif %}
-          
           <!--<button type="button" class="btn btn-default btn-xs navbar-right">
             <span class="glyphicon glyphicon-align-justify " aria-hidden="true"></span>
           </button>-->
-            
-          
-
         </div>
       </nav>
 {% endblock %}
